@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Boletera — Home con hero + dropdown</title>
+<title>Boletera — Navbar con logo, animaciones y buscador móvil</title>
 <style>
   :root{
     --text: #e5e7eb;
@@ -12,22 +12,32 @@
     --glass-bg: rgba(255,255,255,0.08);
     --glass-border: rgba(255,255,255,0.18);
     --btn-radius: 8px;
+
+    /* Mobile */
     --mobile-btn-bg: #ffffff;
     --mobile-btn-border: #d1d5db;
     --mobile-icon: #000000;
+
+    /* Cards */
+    --card-bg: rgba(255,255,255,0.06);
+    --card-border: rgba(255,255,255,0.16);
   }
   *,*::before,*::after{ box-sizing:border-box }
-  html,body{ height:100%; margin:0; font:500 16px/1.4 "Inter",ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; color:var(--text); }
+  html,body{
+    height:100%; margin:0;
+    font: 500 16px/1.4 "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    color:var(--text);
+  }
 
-  /* Fondo con Bad Bunny (Home) */
+  /* Fondo */
   body{
     background:
       linear-gradient(180deg, rgba(11,15,23,0.55), rgba(11,15,23,0.65)),
-      url("https://i.imgur.com/gY8jBal.png") center/cover no-repeat fixed;
+      url("https://i.imgur.com/E1wsj8q.jpeg") center/cover no-repeat fixed;
   }
   .container{ width:min(1200px,92vw); margin:0 auto }
 
-  /* Glass util */
+  /* Util glass (desktop) */
   .glass{
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
@@ -36,7 +46,7 @@
     box-shadow: 0 1px 0 rgba(255,255,255,0.06) inset, 0 10px 30px rgba(0,0,0,0.25);
   }
 
-  /* ===== NAV DESKTOP ===== */
+  /* NAV DESKTOP */
   .navbar-wrap{ position:sticky; top:0; z-index:100 }
   .navbar{ display:flex; align-items:center; gap:16px; padding:16px 0; white-space:nowrap; }
   .logo-img{ height:32px; }
@@ -57,28 +67,24 @@
   .signin{ padding:6px 14px; border-radius: var(--btn-radius); font-weight:600; text-decoration:none; color:var(--text) }
   .signin.glass{ display:inline-block }
 
-  /* Dropdown genérico estilo SeatGeek */
-  .dropdown{
-    position:absolute; left:0; top:100%; margin-top:10px;
-    background:#fff; color:#111; border-radius:16px; border:1px solid rgba(0,0,0,.06);
-    box-shadow: 0 20px 50px rgba(0,0,0,.25); padding:16px 0; display:none; overflow:hidden;
-  }
-  .dropdown.open{ display:block }
-  .dd-header{ font-weight:800; padding:8px 20px 14px }
-  .dd-list{ max-height:60vh; overflow:auto }
-  .dd-item{ display:flex; align-items:center; gap:14px; padding:12px 20px; cursor:pointer }
-  .dd-item:hover{ background:#f3f4f6 }
-  .dd-icon{ width:40px; height:40px; border-radius:12px; background:#111; display:grid; place-items:center; overflow:hidden }
-  .dd-icon img{ width:100%; height:100%; object-fit:cover }
-  .dd-text{ font-weight:700 }
+  .search-dropdown{ position:absolute; left:0; top:100%; margin-top:10px; background:#fff; color:#111; border-radius:16px; border:1px solid rgba(0,0,0,.06); box-shadow:0 20px 50px rgba(0,0,0,.25); padding:16px 0; display:none; overflow:hidden; }
+  .search-dropdown.open{ display:block }
+  .sd-header{ font-weight:800; padding:8px 20px 14px }
+  .sd-list{ max-height:60vh; overflow:auto }
+  .sd-item{ display:flex; align-items:center; gap:14px; padding:12px 20px; cursor:pointer }
+  .sd-item:hover{ background:#f3f4f6 }
+  .sd-icon{ width:40px; height:40px; border-radius:12px; background:#111; display:grid; place-items:center; overflow:hidden }
+  .sd-icon img{ width:100%; height:100%; object-fit:cover }
+  .sd-text{ font-weight:700 }
 
   body.search-active .search{ background:#fff; color:#111; border:1px solid rgba(0,0,0,.08); box-shadow:0 10px 30px rgba(0,0,0,.10) }
   body.search-active .search input::placeholder{ color:#9aa0a6 }
 
-  /* ===== NAV MÓVIL ===== */
+  /* NAV MÓVIL */
   .mobile-bar{ display:none; align-items:center; justify-content:space-between; gap:10px; padding:12px 0 }
   .mobile-left{ display:flex; align-items:center; gap:10px }
   .mobile-logo-img{ height:32px; }
+
   .btn-circle{ width:44px; height:44px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; background:#fff; border:1px solid var(--mobile-btn-border); padding:0; cursor:pointer; position:relative; }
   .btn-circle svg path{ stroke: var(--mobile-icon) }
 
@@ -89,8 +95,17 @@
   .hamb.open .line2{ opacity:0 }
   .hamb.open .line3{ transform:rotate(-45deg); top:21px; background:#fff }
 
+  /* Menú FULLSCREEN móvil */
   .menu-overlay{ position:fixed; inset:0; z-index:220; background:#fff; color:#000; visibility:hidden; opacity:0; pointer-events:none; transform:translateY(-8px); transition:opacity .22s ease, transform .22s ease, visibility 0s linear .22s; }
   .menu-overlay.open{ visibility:visible; opacity:1; pointer-events:auto; transform:translateY(0); transition:opacity .22s ease, transform .22s ease }
+  .mo-content{ height:100%; display:flex; flex-direction:column; padding:14px; padding-top:64px; }
+  .mo-section{ margin-bottom:14px }
+  .mo-title{ font-weight:800; margin:2px 0 10px }
+  .mo-list a{ display:block; padding:12px 8px; border-radius:10px; text-decoration:none; color:#000; font-weight:600 }
+  .mo-list a:hover{ background:#f5f6f7 }
+  .mo-sep{ height:1px; background:#e5e7eb; margin:8px 0 }
+  .mo-currency{ display:flex; align-items:center; gap:8px; background:#f1f1f1; padding:10px 12px; border-radius:10px; font-weight:600 }
+  .mo-currency img{ width:18px; height:12px; object-fit:cover; border:1px solid #ccc }
 
   /* Búsqueda FULLSCREEN móvil */
   .search-overlay{ position:fixed; inset:0; z-index:230; background:#fff; color:#111; visibility:hidden; opacity:0; pointer-events:none; transform:translateY(8px); transition:opacity .22s ease, transform .22s ease, visibility 0s linear .22s; }
@@ -117,65 +132,99 @@
     .right{ display:flex; gap:10px }
     .right .currency,.right .link{ display:none }
     .search{ display:none }
-    .home-hero .hero-search{ display:none } /* en móvil usamos el buscador full-screen */
-    /* botón Iniciar sesión móvil blanco */
+
+    /* “Iniciar sesión” móvil: blanco, sin glass */
     .mobile-right .signin{
-      background:#fff !important; color:#000 !important; border:1px solid var(--mobile-btn-border) !important;
-      -webkit-backdrop-filter:none !important; backdrop-filter:none !important; box-shadow:none !important;
-      padding:6px 14px; border-radius: var(--btn-radius);
+      background:#fff !important;
+      color:#000 !important;
+      border:1px solid var(--mobile-btn-border) !important;
+      -webkit-backdrop-filter:none !important;
+      backdrop-filter:none !important;
+      box-shadow:none !important;
+      padding:6px 14px;
+      border-radius: var(--btn-radius);
     }
   }
 
-  /* ===== HERO HOME ===== */
-  .is-home .navbar .search{ display:none } /* oculta buscador del nav en Home */
-
-  .home-hero{
-    min-height: 68vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
-    text-align:center; gap:18px; padding:60px 16px; position:relative;
+  .hero-content{
+    min-height:calc(100vh - 80px);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
   }
-  .home-title{ font-weight:900; letter-spacing:.2px; font-size:clamp(36px,6.2vw,64px); }
-  .home-sub{ color:#e6e7eb; opacity:.95; font-size:clamp(16px,2.2vw,22px); }
+  .hero-content h1{ font-size:clamp(32px, 6vw, 64px); margin:0 0 12px }
+  .hero-content p{ color:var(--muted); max-width:58ch; margin:0 }
 
-  .hero-search{
-    margin-top:8px; width:min(760px,90vw); background:#fff; color:#111;
-    border-radius:14px; border:1px solid rgba(0,0,0,.08);
-    display:flex; align-items:center; gap:10px; padding:14px 16px;
-    box-shadow:0 18px 50px rgba(0,0,0,.28); position:relative;
-  }
-  .hero-search input{ flex:1; border:0; outline:0; background:transparent; font:500 16px/1.4 "Inter",ui-sans-serif; }
-  .hero-search input::placeholder{ color:#6b7280 }
+  /* ===== Eventos Populares ===== */
+  .section{ padding:48px 0 }
+  .section h2{ font-weight:800; font-size:clamp(22px,3.5vw,28px); margin:0 0 18px }
+  .section p.lead{ color:var(--muted); margin:0 0 22px }
 
-  /* Dropdown del HERO (idéntico estilo) */
-  .hero-dropdown{ composes: dropdown; } /* (nota: si tu builder no soporta composes, heredamos manualmente abajo) */
-  .hero-dropdown{
-    position:absolute; left:0; top:100%; margin-top:10px;
-    background:#fff; color:#111; border-radius:16px; border:1px solid rgba(0,0,0,.06);
-    box-shadow:0 20px 50px rgba(0,0,0,.25); padding:16px 0; display:none; overflow:hidden;
+  .cards{
+    display:grid;
+    grid-template-columns: repeat(3, minmax(0,1fr));
+    gap:18px;
   }
-  .hero-dropdown.open{ display:block }
-  .hd-header{ font-weight:800; padding:8px 20px 14px }
-  .hd-list{ max-height:60vh; overflow:auto }
-  .hd-item{ display:flex; align-items:center; gap:14px; padding:12px 20px; cursor:pointer }
-  .hd-item:hover{ background:#f3f4f6 }
-  .hd-icon{ width:40px; height:40px; border-radius:12px; background:#111; display:grid; place-items:center; overflow:hidden }
-  .hd-icon img{ width:100%; height:100%; object-fit:cover }
-  .hd-text{ font-weight:700 }
+  @media (max-width:1000px){ .cards{ grid-template-columns: repeat(2, minmax(0,1fr)); } }
+  @media (max-width:640px){ .cards{ grid-template-columns: 1fr; } }
+
+  .card{
+    position:relative;
+    border-radius:20px;
+    overflow:hidden;
+    background: var(--card-bg);
+    border:1px solid var(--card-border);
+    -webkit-backdrop-filter: blur(10px) saturate(120%);
+    backdrop-filter: blur(10px) saturate(120%);
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  }
+  .card:hover{
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0,0,0,.35);
+    border-color: rgba(255,255,255,.28);
+  }
+  .card-media{
+    aspect-ratio: 16/9;
+    background:
+      linear-gradient(180deg, rgba(0,0,0,.0), rgba(0,0,0,.45)),
+      url('') center/cover no-repeat;
+  }
+  .card-body{ padding:14px 16px 16px }
+  .card-title{ font-weight:800; font-size:1.02rem; margin:0 0 6px }
+  .card-meta{ color:var(--muted); font-size:.92rem; display:flex; gap:10px; flex-wrap:wrap }
+  .chip{
+    display:inline-block;
+    border:1px solid var(--card-border);
+    padding:6px 10px;
+    border-radius:999px;
+    font-size:.8rem;
+    color:var(--text);
+  }
+  .card-actions{ margin-top:12px; display:flex; gap:10px; flex-wrap:wrap }
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center;
+    gap:8px; padding:8px 12px; border-radius:10px; text-decoration:none;
+    font-weight:700; font-size:.9rem; border:1px solid var(--glass-border);
+    color:var(--text);
+    background: rgba(255,255,255,0.10);
+    -webkit-backdrop-filter: blur(10px) saturate(140%);
+    backdrop-filter: blur(10px) saturate(140%);
+  }
+  .btn:hover{ background: rgba(255,255,255,0.18) }
+  .btn.secondary{ background: transparent; border-color: var(--card-border) }
 </style>
 </head>
+<body>
 
-<body class="is-home">
 <!-- NAV DESKTOP -->
 <div class="navbar-wrap">
   <div class="container">
     <nav class="navbar">
       <img src="https://i.imgur.com/CHlEAsp.png" alt="Logo" class="logo-img" />
-      <!-- (oculto en Home por CSS) -->
       <form class="search glass" role="search" aria-label="Buscar" id="searchForm">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path d="M21 21l-3.8-3.8M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
         </svg>
         <input id="searchInput" type="search" placeholder="¿A quién te gustaría ver en vivo?" autocomplete="off"/>
-        <div class="dropdown" id="searchDropdown"><div class="dd-header">Explorar categorías</div><div class="dd-list" id="sdList"></div></div>
+        <div class="search-dropdown" id="searchDropdown"><div class="sd-header">Explorar categorías</div><div class="sd-list" id="sdList"></div></div>
       </form>
       <div class="menu"><a>Música</a><a>Deportes</a><a>Shows</a><a>Ciudades</a></div>
       <div class="right">
@@ -206,26 +255,7 @@
   </div>
 </div>
 
-<!-- HERO HOME -->
-<section class="home-hero container">
-  <h1 class="home-title">Let there be live</h1>
-  <p class="home-sub">Your next best-night-ever is waiting</p>
-
-  <form class="hero-search" id="heroSearchForm" role="search" aria-label="Buscar en Home">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M21 21l-3.8-3.8M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15z"
-            stroke="#111" stroke-width="1.6" stroke-linecap="round"/>
-    </svg>
-    <input id="heroSearchInput" type="search" placeholder="¿A quién te gustaría ver en vivo?" autocomplete="off">
-    <!-- Dropdown del HERO -->
-    <div class="hero-dropdown" id="heroDropdown">
-      <div class="hd-header">Explorar categorías</div>
-      <div class="hd-list" id="heroList"></div>
-    </div>
-  </form>
-</section>
-
-<!-- OVERLAYS MÓVIL (sin cambios) -->
+<!-- MENÚ FULLSCREEN MÓVIL -->
 <div id="menuOverlay" class="menu-overlay" aria-hidden="true">
   <div class="mo-content">
     <div class="mo-section"><div class="mo-title">Explorar</div><nav class="mo-list"><a>Música</a><a>Deportes</a><a>Shows</a><a>Ciudades</a></nav></div>
@@ -234,147 +264,132 @@
   </div>
 </div>
 
+<!-- BÚSQUEDA FULLSCREEN MÓVIL -->
 <div id="searchOverlay" class="search-overlay" aria-hidden="true">
   <div class="so-header"><div class="so-title">Buscar</div><button id="soClose" class="btn-circle" aria-label="Cerrar">✕</button></div>
   <div class="so-input"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 21l-3.8-3.8M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15z" stroke="#666" stroke-width="1.6" stroke-linecap="round"/></svg><input id="mSearch" type="search" placeholder="¿A quién te gustaría ver en vivo?" autofocus /></div>
   <div class="so-scroll"><div id="soList" class="so-list"></div></div>
 </div>
 
-<!-- CONTENIDO DEMO -->
+<!-- CONTENIDO HERO -->
 <div class="container hero-content">
   <h1>Encuentra tu siguiente evento</h1>
   <p>Compra y vende boletos de manera segura, con la mejor experiencia peer-to-peer.</p>
 </div>
 
+<!-- ===== Sección: Eventos Populares ===== -->
+<section class="section">
+  <div class="container">
+    <h2>Eventos populares en México</h2>
+    <p class="lead">Lo más buscado y con más reventa segura ahora mismo.</p>
+
+    <div id="popularCards" class="cards"></div>
+
+    <div style="margin-top:16px;">
+      <a class="btn secondary" href="https://www.ticketswap.es/mexico" target="_blank" rel="noopener">Explorar todo en TicketSwap</a>
+    </div>
+  </div>
+</section>
+
 <script>
-  /* Datos demo */
-  const CATS = [
-    {label:"Conciertos", img:"https://images.unsplash.com/photo-1489515217757-5fd1be406fef?q=80&w=200&auto=format&fit=crop"},
-    {label:"NFL",       img:"https://images.unsplash.com/photo-1502877338535-766e1452684a?q=80&w=200&auto=format&fit=crop"},
-    {label:"MLB",       img:"https://images.unsplash.com/photo-1519866663826-7e1967cb3eec?q=80&w=200&auto=format&fit=crop"},
-    {label:"NBA",       img:"https://images.unsplash.com/photo-1519861531473-9200262188bf?q=80&w=200&auto=format&fit=crop"},
-    {label:"NHL",       img:"https://images.unsplash.com/photo-1547347298-bb9a5f30d1b1?q=80&w=200&auto=format&fit=crop"},
-    {label:"MLS",       img:"https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a?q=80&w=200&auto=format&fit=crop"},
-    {label:"Fórmula 1", img:"https://images.unsplash.com/photo-1503777119540-1d4a2c42f113?q=80&w=200&auto=format&fit=crop"},
-    {label:"Teatro",    img:"https://images.unsplash.com/photo-1503095396549-807759245b35?q=80&w=200&auto=format&fit=crop"},
-    {label:"Festivales",img:"https://images.unsplash.com/photo-1506157786151-b8491531f063?q=80&w=200&auto=format&fit=crop"}
-  ];
-
-  /* ===== Dropdown de NAV (existente) ===== */
-  const body = document.body;
-  const form = document.getElementById('searchForm');
-  const search = document.getElementById('searchInput');
-  const dropdown = document.getElementById('searchDropdown');
-  const list = document.getElementById('sdList');
-
-  function renderList(container, items, itemClass, iconClass, textClass, onPick){
-    container.innerHTML = "";
-    items.forEach(({label,img})=>{
-      const el = document.createElement('div');
-      el.className = itemClass;
-      el.innerHTML = `<div class="${iconClass}"><img src="${img}" alt=""></div><div class="${textClass}">${label}</div>`;
-      el.addEventListener('click', ()=> onPick(label));
-      container.appendChild(el);
-    });
-  }
-
-  function renderDesktop(items){ renderList(list, items, 'dd-item', 'dd-icon', 'dd-text', (label)=>{ search.value = label; submitSearch(); }); }
+  /* ====== Código existente (buscador, menús) ====== */
+  const CATS = [/* categorías demo */];
+  const body = document.body, form = document.getElementById('searchForm'), search = document.getElementById('searchInput'), dropdown = document.getElementById('searchDropdown'), list = document.getElementById('sdList');
+  function renderDesktop(items){ list.innerHTML=""; items.forEach(({label,img})=>{const el=document.createElement('div');el.className='sd-item';el.innerHTML=`<div class="sd-icon"><img src="${img||''}" alt=""></div><div class="sd-text">${label}</div>`;el.addEventListener('click',()=>{search.value=label;submitSearch();});list.appendChild(el);});}
   renderDesktop(CATS);
+  function measureTextWidth(text,font){const c=measureTextWidth._c||(measureTextWidth._c=document.createElement("canvas"));const ctx=c.getContext("2d");ctx.font=font;return ctx.measureText(text).width;}
+  function currentFont(el){const cs=getComputedStyle(el);return`${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;}
+  function resizeSearch(){const font=currentFont(search);const value=search.value.trim();const basis=value.length?value:search.placeholder;const w=measureTextWidth(basis,font);const total=Math.ceil(w+20+42+6);form.style.width=total+"px";positionDropdown();}
+  function openDropdown(){dropdown.classList.add('open');body.classList.add('search-active');resizeSearch();}
+  function closeDropdown(){dropdown.classList.remove('open');body.classList.remove('search-active');resizeSearch();}
+  function positionDropdown(){const rect=form.getBoundingClientRect();dropdown.style.width=rect.width+'px';dropdown.style.left=0;}
+  window.addEventListener('resize',()=>{if(dropdown.classList.contains('open'))positionDropdown();});
+  search.addEventListener('focus',openDropdown);
+  search.addEventListener('input',()=>{const q=search.value.toLowerCase().trim();const filtered=CATS.filter(c=>c.label.toLowerCase().includes(q));renderDesktop(filtered.length?filtered:CATS);});
+  document.addEventListener('click',e=>{if(!form.contains(e.target))closeDropdown();});
+  window.addEventListener('DOMContentLoaded',resizeSearch);
+  form.addEventListener('submit',e=>{e.preventDefault();submitSearch();});
+  function submitSearch(){closeDropdown();alert('Buscar: '+search.value);}
 
-  function measureTextWidth(text,font){
-    const c = measureTextWidth._c || (measureTextWidth._c = document.createElement("canvas"));
-    const ctx = c.getContext("2d"); ctx.font = font; return ctx.measureText(text).width;
-  }
-  function currentFont(el){ const cs = getComputedStyle(el); return `${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`; }
-  function resizeSearch(){
-    if(!form) return;
-    const font = currentFont(search);
-    const value = search.value.trim();
-    const basis = value.length ? value : search.placeholder;
-    const w = measureTextWidth(basis, font);
-    const total = Math.ceil(w + 20 + 42 + 6);
-    form.style.width = total + "px";
-    positionDropdown();
-  }
-  function openDropdown(){ if(!dropdown) return; dropdown.classList.add('open'); body.classList.add('search-active'); resizeSearch(); }
-  function closeDropdown(){ if(!dropdown) return; dropdown.classList.remove('open'); body.classList.remove('search-active'); resizeSearch(); }
-  function positionDropdown(){ if(!form || !dropdown) return; const rect = form.getBoundingClientRect(); dropdown.style.width = rect.width + 'px'; dropdown.style.left = 0; }
-  window.addEventListener('resize', ()=>{ if(dropdown?.classList.contains('open')) positionDropdown(); });
-  search?.addEventListener('focus', openDropdown);
-  search?.addEventListener('input', ()=>{
-    const q = search.value.toLowerCase().trim();
-    const filtered = CATS.filter(c => c.label.toLowerCase().includes(q));
-    renderDesktop(filtered.length ? filtered : CATS);
-    resizeSearch();
-  });
-  document.addEventListener('click', (e)=>{ if(form && !form.contains(e.target)){ closeDropdown(); }});
-  window.addEventListener('DOMContentLoaded', resizeSearch);
-  form?.addEventListener('submit', e=>{ e.preventDefault(); submitSearch(); });
-  function submitSearch(){ closeDropdown(); alert('Buscar: ' + (search?.value || '')); }
-
-  /* ===== Dropdown del HERO (nuevo) ===== */
-  const heroForm = document.getElementById('heroSearchForm');
-  const heroInput = document.getElementById('heroSearchInput');
-  const heroDropdown = document.getElementById('heroDropdown');
-  const heroList = document.getElementById('heroList');
-
-  function positionHeroDropdown(){
-    if(!heroForm || !heroDropdown) return;
-    const rect = heroForm.getBoundingClientRect();
-    heroDropdown.style.width = rect.width + 'px';
-    heroDropdown.style.left = 0;
-  }
-  function openHeroDropdown(){ heroDropdown.classList.add('open'); positionHeroDropdown(); }
-  function closeHeroDropdown(){ heroDropdown.classList.remove('open'); }
-
-  function renderHero(items){
-    renderList(heroList, items, 'hd-item', 'hd-icon', 'hd-text', (label)=>{ heroInput.value = label; submitHero(); });
-  }
-  renderHero(CATS);
-
-  heroInput.addEventListener('focus', openHeroDropdown);
-  heroInput.addEventListener('input', ()=>{
-    const q = heroInput.value.toLowerCase().trim();
-    const filtered = CATS.filter(c => c.label.toLowerCase().includes(q));
-    renderHero(filtered.length ? filtered : CATS);
-    positionHeroDropdown();
-  });
-  heroForm.addEventListener('submit', (e)=>{ e.preventDefault(); submitHero(); });
-
-  function submitHero(){ closeHeroDropdown(); alert('Buscar: ' + heroInput.value); }
-
-  window.addEventListener('resize', ()=>{ if(heroDropdown.classList.contains('open')) positionHeroDropdown(); });
-  document.addEventListener('click', (e)=>{ if(heroForm && !heroForm.contains(e.target)){ closeHeroDropdown(); }});
-
-  /* ===== NAV móvil & búsqueda móvil (igual que antes) ===== */
-  const btnHamb = document.getElementById('btnHamb');
-  const menuOverlay = document.getElementById('menuOverlay');
-  function openMenu(){ menuOverlay.classList.add('open'); menuOverlay.setAttribute('aria-hidden','false'); btnHamb.classList.add('open'); btnHamb.setAttribute('aria-expanded','true'); document.documentElement.style.overflow='hidden'; document.body.style.overflow='hidden'; }
-  function closeMenu(){ menuOverlay.classList.remove('open'); menuOverlay.setAttribute('aria-hidden','true'); btnHamb.classList.remove('open'); btnHamb.setAttribute('aria-expanded','false'); document.documentElement.style.overflow=''; document.body.style.overflow=''; }
-  btnHamb.addEventListener('click', ()=> menuOverlay.classList.contains('open') ? closeMenu() : openMenu());
-  menuOverlay.addEventListener('click', (e)=>{ if(e.target.closest('a')) closeMenu(); });
-  document.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && menuOverlay.classList.contains('open')) closeMenu(); });
+  const btnHamb = document.getElementById('btnHamb'), menuOverlay = document.getElementById('menuOverlay');
+  function openMenu(){menuOverlay.classList.add('open');menuOverlay.setAttribute('aria-hidden','false');btnHamb.classList.add('open');btnHamb.setAttribute('aria-expanded','true');document.documentElement.style.overflow='hidden';document.body.style.overflow='hidden';}
+  function closeMenu(){menuOverlay.classList.remove('open');menuOverlay.setAttribute('aria-hidden','true');btnHamb.classList.remove('open');btnHamb.setAttribute('aria-expanded','false');document.documentElement.style.overflow='';document.body.style.overflow='';}
+  btnHamb.addEventListener('click',()=>menuOverlay.classList.contains('open')?closeMenu():openMenu());
+  menuOverlay.addEventListener('click',e=>{if(e.target.closest('a'))closeMenu();});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&menuOverlay.classList.contains('open'))closeMenu();});
 
   const btnSearch = document.getElementById('btnSearch'), searchOverlay = document.getElementById('searchOverlay'), soClose = document.getElementById('soClose'), mSearch = document.getElementById('mSearch'), soList = document.getElementById('soList');
-  function openSearchOverlay(){ searchOverlay.classList.add('open'); searchOverlay.setAttribute('aria-hidden','false'); btnHamb.style.display='none'; setTimeout(()=> mSearch.focus(), 50); document.documentElement.style.overflow='hidden'; document.body.style.overflow='hidden'; }
-  function closeSearchOverlay(){ searchOverlay.classList.remove('open'); searchOverlay.setAttribute('aria-hidden','true'); btnHamb.style.display='inline-flex'; document.documentElement.style.overflow=''; document.body.style.overflow=''; }
-  btnSearch.addEventListener('click', openSearchOverlay);
-  soClose.addEventListener('click', closeSearchOverlay);
-  document.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && searchOverlay.classList.contains('open')) closeSearchOverlay(); });
+  function renderMobile(items){soList.innerHTML="";items.forEach(({label,img})=>{const row=document.createElement('div');row.className='so-item';row.innerHTML=`<div class="so-icon"><img src="${img||''}" alt=""></div><div style="font-weight:700">${label}</div>`;row.addEventListener('click',()=>{mSearch.value=label;submitMobile();});soList.appendChild(row);});}
+  renderMobile(CATS);
+  function openSearchOverlay(){searchOverlay.classList.add('open');searchOverlay.setAttribute('aria-hidden','false');btnHamb.style.display='none';setTimeout(()=>mSearch.focus(),50);document.documentElement.style.overflow='hidden';document.body.style.overflow='hidden';}
+  function closeSearchOverlay(){searchOverlay.classList.remove('open');searchOverlay.setAttribute('aria-hidden','true');btnHamb.style.display='inline-flex';document.documentElement.style.overflow='';document.body.style.overflow='';}
+  btnSearch.addEventListener('click',openSearchOverlay);
+  soClose.addEventListener('click',closeSearchOverlay);
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&searchOverlay.classList.contains('open'))closeSearchOverlay();});
+  mSearch.addEventListener('input',()=>{const q=mSearch.value.toLowerCase().trim();const filtered=CATS.filter(c=>c.label.toLowerCase().includes(q));renderMobile(filtered.length?filtered:CATS);});
+  function submitMobile(){closeSearchOverlay();alert('Buscar: '+mSearch.value);}
 
-  function renderMobile(items){
-    soList.innerHTML = "";
-    items.forEach(({label,img})=>{
-      const row = document.createElement('div');
-      row.className = 'so-item';
-      row.innerHTML = `<div class="so-icon"><img src="${img}" alt=""></div><div style="font-weight:700">${label}</div>`;
-      row.addEventListener('click', ()=>{ mSearch.value = label; submitMobile(); });
-      soList.appendChild(row);
+  /* ====== Eventos Populares (basados en TicketSwap MX) ======
+     Puedes añadir imgUrl si tienes un póster (queda como fondo del .card-media) */
+  const POP_EVENTS = [
+    { title:"Bad Bunny — DeBÍ TiRAR MáS FOToS World Tour", city:"Ciudad de México", date:"Múltiples fechas", venue:"Estadio GNP Seguros", href:"https://www.ticketswap.es/mexico" },
+    { title:"F1 Gran Premio de México 2025", city:"Ciudad de México", date:"24–26 oct 2025", venue:"Autódromo Hnos. Rodríguez", href:"https://www.ticketswap.es/mexico" },
+    { title:"Rauw Alejandro — Cosa Nuestra World Tour", city:"Monterrey", date:"2 nov 2025", venue:"Arena Monterrey", href:"https://www.ticketswap.es/mexico" },
+    { title:"Iván Cornejo", city:"Puebla", date:"12 jul", venue:"Por confirmar", href:"https://www.ticketswap.es/mexico" },
+    { title:"Oasis", city:"Ciudad de México", date:"12–13 sept", venue:"Estadio GNP Seguros", href:"https://www.ticketswap.es/mexico" },
+    { title:"Day Zero Festival Tulum 2026", city:"Tulum", date:"10 ene 2026", venue:"Zamna / Tulum", href:"https://www.ticketswap.es/mexico" },
+    { title:"Maluma", city:"Zapopan", date:"15 ago", venue:"Auditorio Telmex", href:"https://www.ticketswap.es/mexico" },
+    { title:"Gracie Abrams — The Secret Of Us Deluxe Tour", city:"Ciudad de México", date:"27 ago", venue:"Pepsi Center", href:"https://www.ticketswap.es/mexico" },
+  ];
+
+  const popularWrap = document.getElementById('popularCards');
+  function renderPopular() {
+    popularWrap.innerHTML = "";
+    POP_EVENTS.forEach(ev => {
+      const card = document.createElement('article');
+      card.className = 'card';
+
+      const media = document.createElement('div');
+      media.className = 'card-media';
+      if (ev.imgUrl) {
+        media.style.backgroundImage =
+          `linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.45)), url('${ev.imgUrl}')`;
+      }
+
+      const body = document.createElement('div');
+      body.className = 'card-body';
+
+      const title = document.createElement('h3');
+      title.className = 'card-title';
+      title.textContent = ev.title;
+
+      const meta = document.createElement('div');
+      meta.className = 'card-meta';
+      meta.innerHTML = `
+        <span class="chip">${ev.city}</span>
+        <span class="chip">${ev.date}</span>
+        ${ev.venue ? `<span class="chip">${ev.venue}</span>` : "" }
+      `;
+
+      const actions = document.createElement('div');
+      actions.className = 'card-actions';
+      const aBuy = document.createElement('a');
+      aBuy.className = 'btn';
+      aBuy.href = ev.href; aBuy.target = "_blank"; aBuy.rel = "noopener";
+      aBuy.textContent = 'Ver entradas';
+
+      const aSell = document.createElement('a');
+      aSell.className = 'btn secondary';
+      aSell.href = ev.href; aSell.target = "_blank"; aSell.rel = "noopener";
+      aSell.textContent = 'Vender boleto';
+
+      actions.append(aBuy, aSell);
+      body.append(title, meta, actions);
+      card.append(media, body);
+      popularWrap.append(card);
     });
   }
-  renderMobile(CATS);
-  mSearch.addEventListener('input', ()=>{ const q = mSearch.value.toLowerCase().trim(); const filtered = CATS.filter(c => c.label.toLowerCase().includes(q)); renderMobile(filtered.length ? filtered : CATS); });
-  function submitMobile(){ closeSearchOverlay(); alert('Buscar: ' + mSearch.value); }
+  renderPopular();
 </script>
 </body>
 </html>
