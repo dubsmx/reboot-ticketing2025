@@ -21,6 +21,9 @@
     /* Cards */
     --card-bg: rgba(255,255,255,0.06);
     --card-border: rgba(255,255,255,0.16);
+
+    /* Fondo sólido para secciones inferiores */
+    --solid-bg: #0b0f17;
   }
   *,*::before,*::after{ box-sizing:border-box }
   html,body{
@@ -29,12 +32,18 @@
     color:var(--text);
   }
 
-  /* Fondo */
+  /* Fondo global sólido (sin imagen) */
   body{
+    background: var(--solid-bg);
+  }
+
+  /* Zona superior con imagen (solo NAV + HERO) */
+  .top-hero{
     background:
       linear-gradient(180deg, rgba(11,15,23,0.55), rgba(11,15,23,0.65)),
-      url("https://i.imgur.com/E1wsj8q.jpeg") center/cover no-repeat fixed;
+      url("https://i.imgur.com/E1wsj8q.jpeg") center/cover no-repeat;
   }
+
   .container{ width:min(1200px,92vw); margin:0 auto }
 
   /* Util glass (desktop) */
@@ -49,7 +58,7 @@
   /* NAV DESKTOP */
   .navbar-wrap{ position:sticky; top:0; z-index:100 }
   .navbar{ display:flex; align-items:center; gap:16px; padding:16px 0; white-space:nowrap; }
-  .logo-img{ height:32px; }
+  .logo-img{ height:32px; } /* Ajusta según tamaño ideal */
 
   .search{ display:inline-flex; align-items:center; gap:10px; padding:12px 16px; border-radius:999px; position:relative; transition: background .2s, border-color .2s, box-shadow .2s; flex:0 0 auto; width:auto; max-width:86vw; }
   .search svg{ flex:0 0 20px; opacity:.9 }
@@ -149,12 +158,13 @@
   .hero-content{
     min-height:calc(100vh - 80px);
     display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
+    /* el hero vive dentro de .top-hero (con imagen) */
   }
   .hero-content h1{ font-size:clamp(32px, 6vw, 64px); margin:0 0 12px }
   .hero-content p{ color:var(--muted); max-width:58ch; margin:0 }
 
-  /* ===== Eventos Populares ===== */
-  .section{ padding:48px 0 }
+  /* ===== Eventos Populares (fondo sólido) ===== */
+  .section{ padding:48px 0; background: var(--solid-bg); }
   .section h2{ font-weight:800; font-size:clamp(22px,3.5vw,28px); margin:0 0 18px }
   .section p.lead{ color:var(--muted); margin:0 0 22px }
 
@@ -214,79 +224,82 @@
 </head>
 <body>
 
-<!-- NAV DESKTOP -->
-<div class="navbar-wrap">
-  <div class="container">
-    <nav class="navbar">
-      <img src="https://i.imgur.com/CHlEAsp.png" alt="Logo" class="logo-img" />
-      <form class="search glass" role="search" aria-label="Buscar" id="searchForm">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M21 21l-3.8-3.8M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+<!-- ===== ZONA CON IMAGEN: NAV + HERO ===== -->
+<div class="top-hero">
+  <!-- NAV DESKTOP -->
+  <div class="navbar-wrap">
+    <div class="container">
+      <nav class="navbar">
+        <img src="https://i.imgur.com/CHlEAsp.png" alt="Logo" class="logo-img" />
+        <form class="search glass" role="search" aria-label="Buscar" id="searchForm">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M21 21l-3.8-3.8M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+          <input id="searchInput" type="search" placeholder="¿A quién te gustaría ver en vivo?" autocomplete="off"/>
+          <div class="search-dropdown" id="searchDropdown"><div class="sd-header">Explorar categorías</div><div class="sd-list" id="sdList"></div></div>
+        </form>
+        <div class="menu"><a>Música</a><a>Deportes</a><a>Shows</a><a>Ciudades</a></div>
+        <div class="right">
+          <span class="currency"><img class="flag-img" src="https://upload.wikimedia.org/wikipedia/commons/f/fc/Flag_of_Mexico.svg" alt="MX">MXN</span>
+          <a class="link">Vender</a>
+          <a class="link">Soporte</a>
+          <a class="signin glass" href="#">Iniciar sesión</a>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+  <!-- NAV MÓVIL -->
+  <div class="mobile-bar container">
+    <div class="mobile-left">
+      <button class="btn-circle hamb" id="btnHamb" aria-label="Abrir menú" aria-expanded="false" aria-controls="menuOverlay" style="z-index:300">
+        <span class="line line1"></span><span class="line line2"></span><span class="line line3"></span>
+      </button>
+      <img src="https://i.imgur.com/CHlEAsp.png" alt="Logo" class="mobile-logo-img" />
+    </div>
+    <div class="mobile-right" style="display:flex; gap:8px; align-items:center;">
+      <button class="btn-circle" id="btnSearch" aria-label="Buscar">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M21 21l-3.8-3.8M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
         </svg>
-        <input id="searchInput" type="search" placeholder="¿A quién te gustaría ver en vivo?" autocomplete="off"/>
-        <div class="search-dropdown" id="searchDropdown"><div class="sd-header">Explorar categorías</div><div class="sd-list" id="sdList"></div></div>
-      </form>
-      <div class="menu"><a>Música</a><a>Deportes</a><a>Shows</a><a>Ciudades</a></div>
-      <div class="right">
-        <span class="currency"><img class="flag-img" src="https://upload.wikimedia.org/wikipedia/commons/f/fc/Flag_of_Mexico.svg" alt="MX">MXN</span>
-        <a class="link">Vender</a>
-        <a class="link">Soporte</a>
-        <a class="signin glass" href="#">Iniciar sesión</a>
-      </div>
-    </nav>
+      </button>
+      <a class="signin glass" href="#">Iniciar sesión</a>
+    </div>
   </div>
-</div>
 
-<!-- NAV MÓVIL -->
-<div class="mobile-bar container">
-  <div class="mobile-left">
-    <button class="btn-circle hamb" id="btnHamb" aria-label="Abrir menú" aria-expanded="false" aria-controls="menuOverlay" style="z-index:300">
-      <span class="line line1"></span><span class="line line2"></span><span class="line line3"></span>
-    </button>
-    <img src="https://i.imgur.com/CHlEAsp.png" alt="Logo" class="mobile-logo-img" />
+  <!-- MENÚ FULLSCREEN MÓVIL -->
+  <div id="menuOverlay" class="menu-overlay" aria-hidden="true">
+    <div class="mo-content">
+      <div class="mo-section"><div class="mo-title">Explorar</div><nav class="mo-list"><a>Música</a><a>Deportes</a><a>Shows</a><a>Ciudades</a></nav></div>
+      <div class="mo-sep"></div>
+      <div class="mo-section"><div class="mo-title">Opciones</div><div class="mo-list"><a>Vender</a><a>Soporte</a><div class="mo-currency"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fc/Flag_of_Mexico.svg" alt="MX">MXN</div></div></div>
+    </div>
   </div>
-  <div class="mobile-right" style="display:flex; gap:8px; align-items:center;">
-    <button class="btn-circle" id="btnSearch" aria-label="Buscar">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M21 21l-3.8-3.8M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-      </svg>
-    </button>
-    <a class="signin glass" href="#">Iniciar sesión</a>
+
+  <!-- BÚSQUEDA FULLSCREEN MÓVIL -->
+  <div id="searchOverlay" class="search-overlay" aria-hidden="true">
+    <div class="so-header"><div class="so-title">Buscar</div><button id="soClose" class="btn-circle" aria-label="Cerrar">✕</button></div>
+    <div class="so-input"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 21l-3.8-3.8M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15z" stroke="#666" stroke-width="1.6" stroke-linecap="round"/></svg><input id="mSearch" type="search" placeholder="¿A quién te gustaría ver en vivo?" autofocus /></div>
+    <div class="so-scroll"><div id="soList" class="so-list"></div></div>
   </div>
-</div>
 
-<!-- MENÚ FULLSCREEN MÓVIL -->
-<div id="menuOverlay" class="menu-overlay" aria-hidden="true">
-  <div class="mo-content">
-    <div class="mo-section"><div class="mo-title">Explorar</div><nav class="mo-list"><a>Música</a><a>Deportes</a><a>Shows</a><a>Ciudades</a></nav></div>
-    <div class="mo-sep"></div>
-    <div class="mo-section"><div class="mo-title">Opciones</div><div class="mo-list"><a>Vender</a><a>Soporte</a><div class="mo-currency"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fc/Flag_of_Mexico.svg" alt="MX">MXN</div></div></div>
+  <!-- CONTENIDO HERO (dentro de la zona con imagen) -->
+  <div class="container hero-content">
+    <h1>Encuentra tu siguiente evento</h1>
+    <p>Compra y vende boletos de manera segura, con la mejor experiencia peer-to-peer.</p>
   </div>
-</div>
+</div><!-- /top-hero -->
 
-<!-- BÚSQUEDA FULLSCREEN MÓVIL -->
-<div id="searchOverlay" class="search-overlay" aria-hidden="true">
-  <div class="so-header"><div class="so-title">Buscar</div><button id="soClose" class="btn-circle" aria-label="Cerrar">✕</button></div>
-  <div class="so-input"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 21l-3.8-3.8M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15z" stroke="#666" stroke-width="1.6" stroke-linecap="round"/></svg><input id="mSearch" type="search" placeholder="¿A quién te gustaría ver en vivo?" autofocus /></div>
-  <div class="so-scroll"><div id="soList" class="so-list"></div></div>
-</div>
-
-<!-- CONTENIDO HERO -->
-<div class="container hero-content">
-  <h1>Encuentra tu siguiente evento</h1>
-  <p>Compra y vende boletos de manera segura, con la mejor experiencia peer-to-peer.</p>
-</div>
-
-<!-- ===== Sección: Eventos Populares ===== -->
+<!-- ===== Sección: Eventos Populares (fondo sólido) ===== -->
 <section class="section">
   <div class="container">
     <h2>Eventos populares en México</h2>
-    <p class="lead">Lo más buscado y con más reventa segura ahora mismo.</p>
+    <p class="lead">Lo más buscado por la comunidad ahora mismo.</p>
 
     <div id="popularCards" class="cards"></div>
 
     <div style="margin-top:16px;">
-      <a class="btn secondary" href="https://www.ticketswap.es/mexico" target="_blank" rel="noopener">Explorar todo en TicketSwap</a>
+      <a class="btn secondary" href="/eventos">Ver más eventos</a>
     </div>
   </div>
 </section>
@@ -329,17 +342,16 @@
   mSearch.addEventListener('input',()=>{const q=mSearch.value.toLowerCase().trim();const filtered=CATS.filter(c=>c.label.toLowerCase().includes(q));renderMobile(filtered.length?filtered:CATS);});
   function submitMobile(){closeSearchOverlay();alert('Buscar: '+mSearch.value);}
 
-  /* ====== Eventos Populares (basados en TicketSwap MX) ======
-     Puedes añadir imgUrl si tienes un póster (queda como fondo del .card-media) */
+  /* ====== Eventos Populares (genéricos, sin referencias externas) ====== */
   const POP_EVENTS = [
-    { title:"Bad Bunny — DeBÍ TiRAR MáS FOToS World Tour", city:"Ciudad de México", date:"Múltiples fechas", venue:"Estadio GNP Seguros", href:"https://www.ticketswap.es/mexico" },
-    { title:"F1 Gran Premio de México 2025", city:"Ciudad de México", date:"24–26 oct 2025", venue:"Autódromo Hnos. Rodríguez", href:"https://www.ticketswap.es/mexico" },
-    { title:"Rauw Alejandro — Cosa Nuestra World Tour", city:"Monterrey", date:"2 nov 2025", venue:"Arena Monterrey", href:"https://www.ticketswap.es/mexico" },
-    { title:"Iván Cornejo", city:"Puebla", date:"12 jul", venue:"Por confirmar", href:"https://www.ticketswap.es/mexico" },
-    { title:"Oasis", city:"Ciudad de México", date:"12–13 sept", venue:"Estadio GNP Seguros", href:"https://www.ticketswap.es/mexico" },
-    { title:"Day Zero Festival Tulum 2026", city:"Tulum", date:"10 ene 2026", venue:"Zamna / Tulum", href:"https://www.ticketswap.es/mexico" },
-    { title:"Maluma", city:"Zapopan", date:"15 ago", venue:"Auditorio Telmex", href:"https://www.ticketswap.es/mexico" },
-    { title:"Gracie Abrams — The Secret Of Us Deluxe Tour", city:"Ciudad de México", date:"27 ago", venue:"Pepsi Center", href:"https://www.ticketswap.es/mexico" },
+    { title:"Bad Bunny — World Tour", city:"Ciudad de México", date:"Múltiples fechas", venue:"Estadio GNP Seguros", href:"#", imgUrl:"" },
+    { title:"Gran Premio de México (F1)", city:"Ciudad de México", date:"Octubre", venue:"Autódromo Hnos. Rodríguez", href:"#", imgUrl:"" },
+    { title:"Rauw Alejandro — Gira 2025", city:"Monterrey", date:"Noviembre", venue:"Arena Monterrey", href:"#", imgUrl:"" },
+    { title:"Iván Cornejo", city:"Puebla", date:"Julio", venue:"Por confirmar", href:"#", imgUrl:"" },
+    { title:"Oasis (reunión)", city:"Ciudad de México", date:"Septiembre", venue:"Estadio GNP Seguros", href:"#", imgUrl:"" },
+    { title:"Day Zero — Tulum", city:"Tulum", date:"Enero", venue:"Tulum", href:"#", imgUrl:"" },
+    { title:"Maluma", city:"Zapopan", date:"Agosto", venue:"Auditorio Telmex", href:"#", imgUrl:"" },
+    { title:"Gracie Abrams — Tour", city:"Ciudad de México", date:"Agosto", venue:"Pepsi Center", href:"#", imgUrl:"" },
   ];
 
   const popularWrap = document.getElementById('popularCards');
@@ -375,13 +387,11 @@
       actions.className = 'card-actions';
       const aBuy = document.createElement('a');
       aBuy.className = 'btn';
-      aBuy.href = ev.href; aBuy.target = "_blank"; aBuy.rel = "noopener";
-      aBuy.textContent = 'Ver entradas';
+      aBuy.href = ev.href; aBuy.textContent = 'Ver entradas';
 
       const aSell = document.createElement('a');
       aSell.className = 'btn secondary';
-      aSell.href = ev.href; aSell.target = "_blank"; aSell.rel = "noopener";
-      aSell.textContent = 'Vender boleto';
+      aSell.href = ev.href; aSell.textContent = 'Vender boleto';
 
       actions.append(aBuy, aSell);
       body.append(title, meta, actions);
