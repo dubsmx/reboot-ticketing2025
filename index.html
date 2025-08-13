@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="es">
+<!doctype html>
+<html lang="es" dir="ltr">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -25,9 +25,11 @@
     font: 500 16px/1.45 "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     background: var(--solid-bg);
   }
+  a{ color:inherit; text-decoration:none }
+  img{ max-width:100%; height:auto }
   .container{ width:min(1200px,92vw); margin:0 auto }
 
-  /* ====== NAV general (sin buscador en nav en home) ====== */
+  /* ====== NAV DESKTOP (TU NAV ORIGINAL) ====== */
   .glass{
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
@@ -45,14 +47,14 @@
   .flag-img{ width:18px; height:12px; object-fit:cover; display:block; border:1px solid rgba(255,255,255,.35); margin-right:6px }
   .signin{ padding:6px 14px; border-radius: var(--btn-radius); font-weight:600; text-decoration:none; color:var(--text) }
 
-  /* ====== HOME: bloque superior con imagen ====== */
+  /* ====== TOP HERO (imagen de fondo) ====== */
   .top-hero{
     background:
       linear-gradient(180deg, rgba(11,15,23,0.55), rgba(11,15,23,0.65)),
       url("https://i.imgur.com/E1wsj8q.jpeg") center/cover no-repeat;
   }
 
-  /* Hero con título + subtítulo + buscador centrado */
+  /* Hero con título + subtítulo + buscador centrado (SeatGeek-like) */
   .hero{ padding:48px 0 28px }
   .hero-head{ text-align:center; padding:40px 0 22px }
   .hero-head h1{
@@ -60,7 +62,9 @@
     font-size:clamp(30px,4.6vw,48px); margin:6px 0 6px;
   }
   .hero-head p{ color:#d7dbe3; margin:0 0 10px; font-weight:600 }
-  .hero-search{ display:flex; justify-content:center; padding:10px 0 28px }
+
+  .hero__search{ display:grid; gap:12px; grid-template-columns:1fr; align-items:center; justify-content:center }
+  .hero-search{ display:flex; justify-content:center; padding:10px 0 0 }
   .hero-search form{
     display:flex; align-items:center; gap:10px;
     background:#fff; color:#111; border:1px solid rgba(0,0,0,.08);
@@ -70,7 +74,12 @@
   .hero-search input{ border:0; outline:0; background:transparent; color:#111; font:inherit; flex:1 }
   .hero-search svg{ opacity:.85 }
 
-  /* ====== Móvil navbar ====== */
+  /* Chips de atajo (como SeatGeek) */
+  .quick{ padding:16px 0 24px }
+  .badges{ display:flex; gap:8px; overflow:auto }
+  .badge{ display:inline-block; border:1px solid rgba(255,255,255,.2); border-radius:999px; padding:8px 12px; background:transparent; font-weight:700; white-space:nowrap }
+
+  /* ====== NAV MÓVIL (tu móvil original se mantiene) ====== */
   .mobile-bar{ display:none; align-items:center; justify-content:space-between; gap:10px; padding:12px 0 }
   .mobile-left{ display:flex; align-items:center; gap:10px }
   .btn-circle{ width:44px; height:44px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; background:#fff; border:1px solid var(--mobile-btn-border); padding:0; cursor:pointer; position:relative }
@@ -100,7 +109,7 @@
   .so-icon{ width:36px; height:36px; border-radius:10px; overflow:hidden; background:#111 }
   .so-scroll{ height:calc(100vh - 140px); overflow:auto }
 
-  /* ====== Trending (PC: cards carrusel / Móvil: lista) ====== */
+  /* ====== Trending (oscuro, estilo SeatGeek) ====== */
   .section{ background:var(--solid-bg); padding:28px 0 48px }
   .section h2{ font-weight:900; font-size:clamp(20px,3.4vw,26px); margin:0 0 14px }
   .carousel-head{ display:flex; justify-content:space-between; align-items:center; margin-bottom:12px }
@@ -125,75 +134,81 @@
   .row-sub{ color:#cfd5df; font-size:.92rem }
   .mini{ width:48px; height:48px; border-radius:12px; overflow:hidden; background:#1a212b; flex:0 0 48px }
 
-  /* ====== Separador (corte limpio) ====== */
+  /* ====== Separador (corte blanco) ====== */
   .separator-wave{ position:relative; background:#fff; }
   .separator-wave svg{ position:absolute; top:-1px; left:0; width:100%; height:42px; display:block; }
 
-  /* ====== Sección blanca: Eventos Populares ====== */
+  /* ====== Sección blanca: Populares ====== */
   .popular{ background:#fff; color:#000; padding:56px 0 }
   .popular h3{ margin:0 0 12px; font-weight:900; font-size:clamp(20px,3.4vw,26px) }
 
-  .controls{
-    display:flex; flex-wrap:wrap; gap:10px; align-items:center;
-    margin:6px 0 22px;
-  }
-  .pill{
-    display:inline-flex; align-items:center; gap:8px;
-    border:1px solid #e5e7eb; background:#fff; border-radius:999px; padding:8px 12px;
-    font-weight:600;
-  }
-  .select{
-    border:1px solid #e5e7eb; background:#fff; border-radius:10px; padding:8px 10px;
-    font-weight:600;
-  }
+  .controls{ display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin:6px 0 22px; }
+  .pill{ display:inline-flex; align-items:center; gap:8px; border:1px solid #e5e7eb; background:#fff; border-radius:999px; padding:8px 12px; font-weight:600; }
+  .select{ border:1px solid #e5e7eb; background:#fff; border-radius:10px; padding:8px 10px; font-weight:600; }
 
   .grid{ display:grid; gap:18px; grid-template-columns: repeat(4, minmax(0,1fr)); }
-  .p-card{
-    background:#f7f7f7; border:1px solid #eaeaea; border-radius:14px; overflow:hidden;
-    box-shadow: 0 2px 6px rgba(0,0,0,.06);
-  }
+  .p-card{ background:#f7f7f7; border:1px solid #eaeaea; border-radius:14px; overflow:hidden; box-shadow: 0 2px 6px rgba(0,0,0,.06); }
   .p-img{ aspect-ratio:16/9; background:#ddd center/cover no-repeat }
   .p-body{ padding:14px 14px 16px }
   .p-title{ margin:0 0 6px; font-weight:800 }
   .p-meta{ margin:0; color:#555 }
   .p-price{ margin:6px 0 0; font-weight:800 }
 
-  /* Responsive */
+  /* ====== Secciones blancas extra (SeatGeek structure) ====== */
+  .white-section{ background:#fff; color:#000; padding:48px 0; border-top:1px solid #eef2f6 }
+  .cards-white{ display:grid; gap:16px; grid-template-columns:repeat(3,minmax(0,1fr)) }
+  .card-white{ border:1px solid #e8ecf1; border-radius:14px; padding:14px; background:#fff }
+
+  .cta{ background:#fff; color:#000; padding:48px 0; border-top:1px solid #eef2f6 }
+
+  /* ====== Footer ====== */
+  footer{ border-top:1px solid #e2e8f0; background:#f8fafc; color:#0f172a; }
+  .footer__grid{ display:grid; gap:24px; padding:32px 0; grid-template-columns:repeat(2,minmax(0,1fr)) }
+  .list{ display:grid; gap:8px }
+  .footbar{ padding:12px 0; border-top:1px solid #e2e8f0; font-size:.875rem; color:#475569 }
+
+  /* ====== Responsive ====== */
+  @media (min-width: 768px){
+    .hero__search{ grid-template-columns:2fr 1.2fr 1.2fr auto } /* reservado si agregas más inputs */
+    .cards{ grid-template-columns:repeat(4,minmax(0,1fr)) }
+    .cards-white{ grid-template-columns:repeat(3,minmax(0,1fr)) }
+  }
   @media (max-width:1000px){
     .cards{ grid-template-columns: repeat(3,1fr) }
     .grid{ grid-template-columns: repeat(3,1fr) }
   }
   @media (max-width:900px){
-    .navbar{ display:none } .mobile-bar{ display:flex }
+    .navbar{ display:none } .mobile-bar{ display:flex }   /* tu móvil se mantiene */
     .cards{ display:none } .trending-list{ display:block }
     .grid{ grid-template-columns: repeat(2,1fr) }
   }
   @media (max-width:560px){
     .grid{ grid-template-columns: 1fr }
+    .cards-white{ grid-template-columns: 1fr }
   }
 </style>
 </head>
 <body>
 
-<!-- ======= BLOQUE SUPERIOR (NAV + HERO con imagen) ======= -->
+<!-- ======= BLOQUE SUPERIOR (TU NAV DESKTOP + HERO) ======= -->
 <div class="top-hero">
-  <!-- NAV DESKTOP -->
+  <!-- NAV DESKTOP (se conserva tal cual) -->
   <div class="navbar-wrap">
     <div class="container">
-      <nav class="navbar">
+      <nav class="navbar" aria-label="Navegación principal">
         <img src="https://i.imgur.com/CHlEAsp.png" alt="Logo" class="logo-img" />
-        <div class="menu"><a>Música</a><a>Deportes</a><a>Shows</a><a>Ciudades</a></div>
+        <div class="menu"><a href="#">Música</a><a href="#">Deportes</a><a href="#">Shows</a><a href="#">Ciudades</a></div>
         <div class="right">
           <span class="currency" style="display:flex; align-items:center"><img class="flag-img" src="https://upload.wikimedia.org/wikipedia/commons/f/fc/Flag_of_Mexico.svg" alt="MX">MXN</span>
-          <a class="link">Vender</a>
-          <a class="link">Soporte</a>
+          <a class="link" href="#">Vender</a>
+          <a class="link" href="#">Soporte</a>
           <a class="signin glass" href="#">Iniciar sesión</a>
         </div>
       </nav>
     </div>
   </div>
 
-  <!-- NAV MÓVIL -->
+  <!-- NAV MÓVIL (igual que tenías) -->
   <div class="mobile-bar container">
     <div class="mobile-left">
       <button class="btn-circle hamb" id="btnHamb" aria-label="Abrir menú" aria-expanded="false" aria-controls="menuOverlay" style="z-index:300">
@@ -206,55 +221,67 @@
     </div>
   </div>
 
-  <!-- HERO -->
-  <div class="hero container">
+  <!-- HERO (SeatGeek-like) -->
+  <section class="hero container" aria-labelledby="hero-title">
     <div class="hero-head">
-      <h1>Let there be live</h1>
+      <h1 id="hero-title">Let there be live</h1>
       <p>Your next best-night-ever is waiting</p>
     </div>
     <div class="hero-search">
-      <form id="heroSearchForm">
+      <form id="heroSearchForm" role="search" aria-label="Buscar eventos">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path d="M21 21l-3.8-3.8M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
         </svg>
         <input id="heroSearch" placeholder="What do you want to see live?" />
       </form>
     </div>
-  </div>
+
+    <!-- Chips (atajos) -->
+    <div class="quick">
+      <div class="badges" role="list" aria-label="Atajos">
+        <a class="badge" role="listitem" href="#">NFL</a>
+        <a class="badge" role="listitem" href="#">NBA</a>
+        <a class="badge" role="listitem" href="#">MLB</a>
+        <a class="badge" role="listitem" href="#">Conciertos</a>
+        <a class="badge" role="listitem" href="#">Teatro</a>
+        <a class="badge" role="listitem" href="#">Festivales</a>
+      </div>
+    </div>
+  </section>
 </div><!-- /top-hero -->
 
-<!-- ======= TRENDING / EVENTOS POPULARES (oscuro) ======= -->
+<!-- ===== TRENDING (oscuro, estilo SeatGeek) ===== -->
 <section class="section">
   <div class="container">
     <div class="carousel-head">
-      <h2>Trending Events</h2>
+      <h2>Tendencias cerca de ti</h2>
       <div class="pager"><button class="btnp" aria-label="Anterior">‹</button><span>1 of 5</span><button class="btnp" aria-label="Siguiente">›</button></div>
     </div>
 
     <!-- Desktop cards -->
-    <div id="cards" class="cards"></div>
+    <div id="cards" class="cards" role="list"></div>
 
     <!-- Mobile list -->
-    <div class="trending-list" id="list"></div>
+    <div class="trending-list" id="list" role="list"></div>
   </div>
 </section>
 
-<!-- ===== Separador suave (onda) hacia sección blanca ===== -->
-<div class="separator-wave">
-  <svg viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true">
+<!-- ===== Separador a sección blanca ===== -->
+<div class="separator-wave" aria-hidden="true">
+  <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
     <path d="M0,0 C240,60 480,60 720,30 C960,0 1200,0 1440,20 L1440,80 L0,80 Z" fill="#ffffff"></path>
   </svg>
 </div>
 
-<!-- ===== Sección blanca: Eventos Populares en México ===== -->
-<section class="popular">
+<!-- ===== Sección blanca: Populares en México ===== -->
+<section class="popular" aria-labelledby="popular-title">
   <div class="container">
-    <h3>Eventos Populares en México</h3>
+    <h3 id="popular-title">Eventos Populares en México</h3>
 
-    <!-- Controles: ciudad + fecha -->
+    <!-- Controles -->
     <div class="controls">
       <div class="pill">
-        📍 <span id="currentCityLabel">Ciudad: </span>
+        📍 <span id="currentCityLabel">Ciudad:</span>
         <select id="citySelect" class="select" aria-label="Seleccionar ciudad">
           <option value="CDMX">CDMX</option>
           <option value="Guadalajara">Guadalajara</option>
@@ -274,17 +301,98 @@
       </div>
     </div>
 
-    <div id="popularGrid" class="grid"></div>
+    <div id="popularGrid" class="grid" role="list"></div>
   </div>
 </section>
+
+<!-- ===== Explora por categoría ===== -->
+<section class="white-section" aria-labelledby="cats-title">
+  <div class="container">
+    <h2 id="cats-title" style="margin:0 0 14px;font-weight:900;font-size:clamp(20px,3.4vw,26px)">Explora por categoría</h2>
+    <div class="cards-white">
+      <a class="card-white" href="#"><strong>Deportes</strong><br><span>Ligas, equipos, playoffs…</span></a>
+      <a class="card-white" href="#"><strong>Conciertos</strong><br><span>Artistas, giras, festivales…</span></a>
+      <a class="card-white" href="#"><strong>Teatro</strong><br><span>Obras y musicales…</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Ciudades populares ===== -->
+<section class="white-section" aria-labelledby="cities-title">
+  <div class="container">
+    <h2 id="cities-title" style="margin:0 0 14px;font-weight:900;font-size:clamp(20px,3.4vw,26px)">Ciudades populares</h2>
+    <div class="cards-white">
+      <a class="card-white" href="#">Ciudad de México</a>
+      <a class="card-white" href="#">Guadalajara</a>
+      <a class="card-white" href="#">Monterrey</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA / Newsletter ===== -->
+<section class="cta" aria-labelledby="cta-title">
+  <div class="container">
+    <h2 id="cta-title" style="margin:0 0 12px;font-weight:900;font-size:clamp(20px,3.4vw,26px)">Recibe alertas de precios</h2>
+    <form class="hero__search" aria-label="Suscripción">
+      <label class="visualmente-oculto" for="email">Correo</label>
+      <div style="display:flex;gap:10px;align-items:center;max-width:560px">
+        <input id="email" type="email" placeholder="tucorreo@ejemplo.com" style="flex:1;border:1px solid #e5e7eb;border-radius:12px;padding:12px 14px;color:#0f172a" />
+        <button class="signin" style="background:#0ea5e9;border:1px solid #0ea5e9;color:#fff" type="submit">Suscribirme</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer role="contentinfo" aria-label="Información del sitio">
+  <div class="container footer__grid">
+    <section>
+      <h3 style="margin-top:0">Recursos</h3>
+      <nav class="list" aria-label="Recursos">
+        <a href="#">Acerca de</a>
+        <a href="#">Prensa</a>
+        <a href="#">Empleos</a>
+        <a href="#">Accesibilidad</a>
+        <a href="#">Blog</a>
+        <a href="#">Ayuda</a>
+        <a href="#">Vender entradas</a>
+      </nav>
+    </section>
+    <section>
+      <h3 style="margin-top:0">Categorías</h3>
+      <nav class="list" aria-label="Categorías">
+        <a href="#">Deportes</a>
+        <a href="#">Conciertos</a>
+        <a href="#">Teatro</a>
+      </nav>
+    </section>
+    <section>
+      <h3 style="margin-top:0">Síguenos</h3>
+      <div class="list">
+        <a href="#">Instagram</a>
+        <a href="#">TikTok</a>
+        <a href="#">X</a>
+      </div>
+    </section>
+    <section>
+      <h3 style="margin-top:0">Legal</h3>
+      <div class="list">
+        <a href="#">Términos</a>
+        <a href="#">Privacidad</a>
+        <a href="#">Preferencias de cookies</a>
+      </div>
+    </section>
+  </div>
+  <div class="container footbar">© 2025 TuBoletera</div>
+</footer>
 
 <!-- ===== Overlays MÓVIL (reusables) ===== -->
 <div id="menuOverlay" class="menu-overlay" aria-hidden="true">
   <div class="mo-content">
     <div style="font-weight:800;margin-bottom:6px">Explorar</div>
-    <nav class="mo-list"><a>Música</a><a>Deportes</a><a>Shows</a><a>Ciudades</a></nav>
+    <nav class="mo-list"><a href="#">Música</a><a href="#">Deportes</a><a href="#">Shows</a><a href="#">Ciudades</a></nav>
     <div style="height:1px;background:#e5e7eb;margin:12px 0"></div>
-    <div class="mo-list"><a>Vender</a><a>Soporte</a></div>
+    <div class="mo-list"><a href="#">Vender</a><a href="#">Soporte</a></div>
   </div>
 </div>
 
@@ -295,7 +403,7 @@
 </div>
 
 <script>
-  /* ===== Demo data para trending (oscuro) ===== */
+  /* ===== Demo data para trending ===== */
   const EVENTS = [
     { title:"Dodgers at Angels", date:"Aug 13", price:"From $82",
       banner:"https://images.unsplash.com/photo-1502877338535-766e1452684a?q=80&w=1400&auto=format&fit=crop",
@@ -321,6 +429,7 @@
     EVENTS.forEach(ev=>{
       const el = document.createElement('article');
       el.className = 'card';
+      el.setAttribute('role','listitem');
       el.innerHTML = `
         <div class="card-media" style="background-image:url('${ev.banner}')">
           <button class="heart" aria-label="Guardar">
@@ -346,6 +455,7 @@
     EVENTS.forEach(ev=>{
       const row = document.createElement('div');
       row.className = 'row';
+      row.setAttribute('role','listitem');
       row.innerHTML = `
         <div style="display:flex;align-items:center;gap:12px;flex:1">
           <div class="thumb"><img src="${ev.left}" alt="" style="width:100%;height:100%;object-fit:cover"></div>
@@ -382,55 +492,21 @@
   heroSearchForm.addEventListener('click', (e)=>{
     e.preventDefault();
     searchOverlay.classList.add('open'); lockScroll(true);
-    setTimeout(()=> mSearch.focus(), 80);
+    setTimeout(()=> mSearch && mSearch.focus(), 80);
   });
-  soClose.addEventListener('click', ()=>{ searchOverlay.classList.remove('open'); lockScroll(false); });
+  if(soClose){
+    soClose.addEventListener('click', ()=>{ searchOverlay.classList.remove('open'); lockScroll(false); });
+  }
   heroSearchForm.addEventListener('submit', (e)=>{ e.preventDefault(); alert('Buscar: '+ heroSearch.value); });
 
   /* ====== POPULARES: ciudad + fecha (filtro) ====== */
   const POPULAR = [
-    {
-      title:"The Weeknd — After Hours",
-      city:"CDMX",
-      date:"2025-08-25",
-      price:"Desde $1,200 MXN",
-      img:"https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=1400&auto=format&fit=crop"
-    },
-    {
-      title:"Dua Lipa — Future Nostalgia",
-      city:"Guadalajara",
-      date:"2025-09-02",
-      price:"Desde $980 MXN",
-      img:"https://images.unsplash.com/photo-1483412033650-1015ddeb83d1?q=80&w=1400&auto=format&fit=crop"
-    },
-    {
-      title:"Bad Bunny — Tour",
-      city:"Monterrey",
-      date:"2025-10-14",
-      price:"Desde $1,800 MXN",
-      img:"https://images.unsplash.com/photo-1515169067865-5387ec356754?q=80&w=1400&auto=format&fit=crop"
-    },
-    {
-      title:"Arctic Monkeys",
-      city:"Tijuana",
-      date:"2025-09-18",
-      price:"Desde $1,050 MXN",
-      img:"https://images.unsplash.com/photo-1438232992991-995b7058bbb5?q=80&w=1400&auto=format&fit=crop"
-    },
-    {
-      title:"Imagine Dragons",
-      city:"CDMX",
-      date:"2025-08-13",
-      price:"Desde $1,100 MXN",
-      img:"https://images.unsplash.com/photo-1520975922215-cf1bd9d8ef5a?q=80&w=1400&auto=format&fit=crop"
-    },
-    {
-      title:"Luis Miguel",
-      city:"Guadalajara",
-      date:"2025-08-17",
-      price:"Desde $1,300 MXN",
-      img:"https://images.unsplash.com/photo-1506157786151-b8491531f063?q=80&w=1400&auto=format&fit=crop"
-    }
+    { title:"The Weeknd — After Hours", city:"CDMX", date:"2025-08-25", price:"Desde $1,200 MXN", img:"https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=1400&auto=format&fit=crop" },
+    { title:"Dua Lipa — Future Nostalgia", city:"Guadalajara", date:"2025-09-02", price:"Desde $980 MXN", img:"https://images.unsplash.com/photo-1483412033650-1015ddeb83d1?q=80&w=1400&auto=format&fit=crop" },
+    { title:"Bad Bunny — Tour", city:"Monterrey", date:"2025-10-14", price:"Desde $1,800 MXN", img:"https://images.unsplash.com/photo-1515169067865-5387ec356754?q=80&w=1400&auto=format&fit=crop" },
+    { title:"Arctic Monkeys", city:"Tijuana", date:"2025-09-18", price:"Desde $1,050 MXN", img:"https://images.unsplash.com/photo-1438232992991-995b7058bbb5?q=80&w=1400&auto=format&fit=crop" },
+    { title:"Imagine Dragons", city:"CDMX", date:"2025-08-13", price:"Desde $1,100 MXN", img:"https://images.unsplash.com/photo-1520975922215-cf1bd9d8ef5a?q=80&w=1400&auto=format&fit=crop" },
+    { title:"Luis Miguel", city:"Guadalajara", date:"2025-08-17", price:"Desde $1,300 MXN", img:"https://images.unsplash.com/photo-1506157786151-b8491531f063?q=80&w=1400&auto=format&fit=crop" }
   ];
 
   const grid = document.getElementById('popularGrid');
@@ -442,7 +518,6 @@
     if(mode === 'all') return true;
     const d = new Date(iso);
     const now = new Date();
-    // normalizar a medianoche
     const start = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     if(mode === 'today'){
       const end = new Date(start); end.setDate(start.getDate()+1);
@@ -469,6 +544,7 @@
       .forEach(ev=>{
         const card = document.createElement('article');
         card.className = 'p-card';
+        card.setAttribute('role','listitem');
         card.innerHTML = `
           <div class="p-img" style="background-image:url('${ev.img}')"></div>
           <div class="p-body">
